@@ -1,0 +1,121 @@
+// Place all the styles related to the payment_process controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.select-submission-page{
+	.btn{
+		color: white;
+	}
+}
+.input-card-info-page{
+	.content-page{
+		background-color: #ffff00;
+    width: 870px; padding-left: 30px;
+		.first-row{
+			margin-top: 50px;
+			margin-bottom: 40px;
+			.checkout-page-title{
+				width: 196px;
+				height: 34px;
+				background: url("stripe.png") repeat scroll -454px -328px transparent;
+			}				
+		}		
+		.control-group{
+			.controls{
+				input{
+					background-color: transparent;
+				}
+				select{
+					background-color: transparent;
+					border: solid 1px;
+					border-radius: 0px;
+				}
+				.parsley-error-list{
+					li{
+						list-style: none;
+						background-color: #fff;
+				    border: 1px solid #dd;
+				    border-radius: 4px;
+				    margin-top: 5px;
+				    padding: 3px 0 3px 10px;
+				    width: 200px;				    
+					}
+				}
+			}
+		}
+	}	
+}
+.content-page{
+	background-color: #ffff00;
+  width: 870px; padding-left: 30px;
+	.first-row{
+		margin-top: 50px;
+		margin-bottom: 40px;
+		.checkout-page-title{
+			width: 196px;
+			height: 34px;
+			background: url("stripe.png") repeat scroll -454px -328px transparent;
+		}	
+	}
+	
+}
+
+.current-submissions-page {
+  > .row {
+    padding-left: 42px;
+    padding-right: 42px;
+    width: 816px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      margin: 0;
+      padding: 0 0 6px 0;
+      a {color: rgb(0,0,0);}
+    }
+  }
+
+  .current-submissions-page-title {
+  	width: 394px;
+  	height: 66px;
+  	background: url("stripe.png") repeat scroll -6px -548px transparent;
+  	margin-top: 50px;
+  	margin-bottom: 40px;
+  }
+}
+
+.previous-submissions-page {
+  > .row {
+    padding-left: 42px;
+    padding-right: 42px;
+    width: 816px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      margin: 0;
+      padding: 0 0 6px 0;
+      a {color: rgb(0,0,0);}
+    }
+  }
+  .previous-submissions-page-title {
+  	width: 400px;
+  	height: 66px;
+  	background: url("stripe.png") repeat scroll -6px -628px transparent;
+  	margin-top: 50px;
+  	margin-bottom: 40px;
+  }
+}
+
+.c_btn.btn_complete {
+  padding: 0 !important; margin: 5px 0 0 0 !important; overflow: hidden;
+  background: url('buttons.png') 0 -250px no-repeat; background-color: transparent !important;
+  border-radius: 0 !important; font-size: 0 !important; text-indent: -999px;
+  width: 82px !important; height: 82px !important;
+  &:hover {background-position: -90px -250px;}
+}

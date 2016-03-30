@@ -1,0 +1,24 @@
+- @current_section = :submission
+
+
+.container.agree-terms-page
+	.row.inner-container
+		= render layout: 'form' do |f|
+			.row
+				%p
+					%strong #{session[:submission_type] == 'project' ? 'Project' : 'Product'} Deadline: September 6, 11:59pm (EST)
+
+			.row
+				- if session[:submission_type] == 'project'
+					= raw get_option(:project_submission_agreement)
+				- else
+					= raw get_option(:product_submission_agreement)
+
+			.row.checkbox_agree
+				%label I have read and agree to the terms of this competition.
+				%label.checkbox
+					.accept-agree-check
+					%input.accept-agree{:style=>"display:none;", :type=>"checkbox"}
+
+:javascript
+	$(".btn-continue").attr("disabled","disabled");

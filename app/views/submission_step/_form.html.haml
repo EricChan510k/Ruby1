@@ -1,0 +1,36 @@
+= form_for @submission, url: wizard_path, :html=>{:class=>"form-horizontal edit_submission", :"data-validate" => "parsley", :multipart => true} do |f|
+	- if @submission.errors.any?
+		.error_messages
+			%h2
+				= pluralize(@submission.errors.count, "error")
+				prohibited this user from being saved:
+			%ul
+				- @submission.errors.full_messages.each do |msg|
+					%li= msg
+	.row.first-row
+		- if session[:submission_type]=='product'
+			.submission-product-page-title
+		- else
+			.submission-project-page-title
+	= yield f
+	.row.actions{:style=>"text-align: right;"}
+		.control-box
+			= link_to "Go Back", previous_wizard_path, :class=>"c_btn yc_btn btn_go_back"
+			= f.submit "Continue", :class=>"c_btn btn-continue yc_btn btn_continue"
+			- unless step == :agreement # What are we saving if they have not done anything yet?
+				%button{:name => "save_as_draft", :value => "1", :class=>"c_btn btn_resume_later yc_btn btn_save_draft"} Save & Resume Later
+
+:javascript
+	$("input.accept-agree").click(function(){
+		if($(this).is(':checked')){
+			$('div.accept-agree-check').addClass("accept-agree-checked");			
+			$(".btn-continue").removeAttr("disabled");
+		}else{
+			$(".btn-continue").attr("disabled","disabled");
+			$('div.accept-agree-check').removeClass("accept-agree-checked");			
+		}
+	});	
+
+	$('button.btn_resume_later').on('click mousedown', function(){
+		$('form.edit_submission').parsley('destroy')
+	});

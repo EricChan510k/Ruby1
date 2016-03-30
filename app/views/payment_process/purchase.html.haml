@@ -1,0 +1,81 @@
+- @current_section = :submission
+
+- if dev? || stage?
+	#flash-banner
+		.flash.warning NOTE: FOR TESTING ONLY: Use credit card 4242424242424242.
+
+
+.row.input-card-info-page
+	.container
+		.span9.content-page
+			.row.first-row
+				.checkout-page-title
+			.row{:style=>"margin-left:0px;"}		
+				.span8.offset2
+					.row.submissions-info
+						%h5 Submissions: #{@order.submissions.map{|s| s.title}.join(", ")}
+						%h5
+							Submission total: #{@order.calculate_price.format}
+							- if @order.discount_amount > 0
+								(You save #{@order.discount_amount.format}!)
+					.row &nbsp;
+			.row
+				.span8.offset2
+					= render layout: 'form' do |f|
+						.row.input-box
+							.control-group
+								= f.label :shipping_first_name, "Name on Credit Card*:",:class => 'control-label'
+								.controls
+									= f.text_field :shipping_first_name, :class => 'text_field', :"data-required"=>"true", :placeholder =>"First Name"
+									= display_form_error(f.object, :shipping_first_name)
+									&nbsp;
+									= f.text_field :shipping_last_name, :class => 'text_field', :"data-required"=>"true", :placeholder =>"Last Name", :style=>"width: 170px;"
+									= display_form_error(f.object, :shipping_last_name)
+							.control-group
+								%label.control-label Card Number:*
+								.controls
+									= text_field_tag :card_number, nil, name: 'card_number', :placeholder=>"Credit Card Number"
+									= display_form_error(f.object, :card_number)
+							.control-group
+								%label.control-label CVV Number:*
+								.controls
+									= text_field_tag :cvv_number, nil, name: 'cvv_number', :placeholder=>"CVV Number", :style=>"width: 91px;"
+									= display_form_error(f.object, :cvv_number)
+							.control-group
+								%label.control-label Expration:*
+								.controls
+									= select_month nil, {add_month_numbers_true: true}, {name: 'exp_month', id: "card_month", :style=>"width: 115px;"}
+									= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: 'exp_year', id: "card_year", :style=>"width: 100px;"}
+									= display_form_error(f.object, :exp_month)
+									= display_form_error(f.object, :exp_year)
+						.row.billing-address
+							.control-group
+								= f.label :shipping_address, "Billing Address1*:",:class => 'control-label'
+								.controls
+									= f.text_field :shipping_address, :class => 'text_field', :"data-required"=>"true", :placeholder =>"Address1"
+									= display_form_error(f.object, :shipping_address)
+							.control-group
+								= f.label :shipping_optional_address, "Billing Address2:",:class => 'control-label'
+								.controls
+									= f.text_field :shipping_optional_address, :class => 'text_field', :placeholder =>"Address2"
+									= display_form_error(f.object, :shipping_optional_address)
+							.control-group
+								= f.label :shipping_country, "Country:*",:class => 'control-label'
+								.controls
+									= f.country_select :shipping_country, {:priority => %w(US CA)}, prompt: 'Please select a country'
+									= display_form_error(f.object, :shipping_country)
+							.control-group
+								= f.label :shipping_city, "City:*",:class => 'control-label'
+								.controls
+									= f.text_field :shipping_city, :class => 'text_field', :placeholder =>"City"
+									= display_form_error(f.object, :shipping_city)
+							.control-group
+								= f.label :shipping_state, "State:*",:class => 'control-label'
+								.controls
+									= f.text_field :shipping_state, :class => 'text_field', :placeholder =>"State"
+									= display_form_error(f.object, :shipping_state)
+							.control-group
+								= f.label :shipping_zip_code, "Zip Code:*",:class => 'control-label'
+								.controls
+									= f.text_field :shipping_zip_code, :class => 'text_field', :placeholder =>"Zip Code"
+									= display_form_error(f.object, :shipping_zip_code)

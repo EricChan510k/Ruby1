@@ -1,0 +1,51 @@
+- @current_section = :submission
+
+
+.container.select-categories-page
+	.row.inner-container
+		= render layout: 'form' do |f|
+			.row.first-row
+				.control-group
+					= f.label :title, "Submission Name (for your own reference):",:class => 'control-label', :style=>"width: 300px;"
+					.controls
+						= f.text_field :title, :class => 'text_field', :"data-required"=>"true", :style=>"background-color: transparent;", :value => (f.object.status == 'editing' ? '' : f.object.title)
+			.row.second-row
+				- if session[:submission_type] == 'product'
+					%p Product Category:
+					%p Fees: $300 per entry/category for the first 4 entries. All additional entries are discounted at $250 per entry/category. (Each category is considered an entry —e.g. one project entered into two categories is $300 x 2 = $600.) You must submit all entries at the same time for the discount to apply.
+				- else
+					%p Project Category:
+					%p Fees: $300 per entry/category for the first 4 entries. All additional entries are discounted at $250 per entry/category. (Each category is considered an entry —e.g. one project entered into two categories is $300 x 2 = $600.) You must submit all entries at the same time for the discount to apply.
+				.span9.categories-box
+					=f.fields_for :submission_categories, @categories, :builder => CustomFormBuilder do |submission_cat|
+						.span4
+							%label.checkbox
+								= submission_cat.check_box :category_id, {:saved_values => [f.object.submission_categories, ["id", "name"]]}, submission_cat.object.id, '-1'
+								%label= submission_cat.object.name
+
+
+:javascript
+	$('div.categories-box input[type="hidden"]').each(function(){
+		if($(this).val()!=-1){
+			 $(this).remove();
+		}
+	})
+
+	$('input[type="checkbox"]').customInput();
+
+	$("form.edit_submission").submit(function(){
+		var checked = false;
+		
+		$(".categories-box input[type='checkbox']").each(function(){
+			if($(this).is(':checked')){
+				checked = true;
+			}
+		});
+
+		if(checked == false){
+			alert("Please select the category");
+			return false;
+		}else{
+			return true;
+		}
+	});

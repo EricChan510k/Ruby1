@@ -1,0 +1,42 @@
+= form_for @user, :url => (@user.new_record? ? signup_path : user_path), :method => (@user.new_record? ? :post : :put), :html => { :class => 'form-horizontal', :"data-validate" => "parsley" } do |f|
+	.control-group
+		= f.label :email, 'Email Address*', :class => 'control-label'
+		.controls
+			= f.text_field :email, :class => 'text_field'#, :"data-required"=>"true"
+			- unless f.object.errors[:email].blank?
+				= display_form_error(f.object, :email)
+			- else
+				%br
+				%span.note (we'll send updates on your entry to this address)
+	.control-group
+		= f.label :password, "Password*", :class => 'control-label'
+		.controls
+			= f.password_field :password, :class => 'text_field'#, :"data-required"=>"true"
+			= display_form_error(f.object, :password)
+	.control-group
+		= f.label :password_confirmation, "Retype Password*", :class => 'control-label'
+		.controls
+			= f.password_field :password_confirmation, :class => 'text_field'#, :"data-required"=>"true"
+			= display_form_error(f.object, :password_confirmation)
+	.control-group
+		= f.label :first_name, "First Name*", :class => 'control-label'
+		.controls
+			= f.text_field :first_name, :class => 'text_field'#, :"data-required"=>"true"
+			= display_form_error(f.object, :first_name)
+	.control-group
+		= f.label :last_name, "Last Name*", :class => 'control-label'
+		.controls
+			= f.text_field :last_name, :class => 'text_field'#, :"data-required"=>"true"
+			= display_form_error(f.object, :last_name)
+	.control-group
+		= f.label :company_name, "Company Name*", :class => 'control-label'
+		.controls
+			= f.text_field :company_name, :class => 'text_field'#, :"data-required"=>"true"
+			= display_form_error(f.object, :company_name)
+	.control-group
+		= f.label :occupation, "Occupation*", :class => 'control-label'
+		.controls
+			= f.text_field :occupation, :class => 'text_field'#, :"data-required"=>"true"
+			= display_form_error(f.object, :occupation)
+	.form-actions{:style=>'float: right;'}
+		= f.submit 'Submit', :class => 'c_btn wc_btn'		

@@ -1,0 +1,15 @@
+- @current_section = :account
+
+
+.previous-submissions-page.container
+	.row
+		.previous-submissions-page-title
+		%ul
+			- unless @complete_submissions.blank?
+				- @complete_submissions.each do |submission|
+					%li
+						= link_to submission.title, '#'
+			-else
+				%p.note
+					You have no submitted entries.
+					%a{:href => home_submission_landing_path} Start a submission here!

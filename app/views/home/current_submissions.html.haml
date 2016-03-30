@@ -1,0 +1,15 @@
+- @current_section = :account
+
+
+.current-submissions-page.container
+	.row
+		.current-submissions-page-title
+		- unless @current_submissions.blank?
+			%ul
+				- @current_submissions.each do |sub|
+					%li
+						= link_to sub.title, home_edit_submission_path(sub.id)
+		- else
+			%p.note
+				You have no open entries.
+				%a{:href => home_submission_landing_path} Start a submission here!

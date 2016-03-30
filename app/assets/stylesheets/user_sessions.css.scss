@@ -1,0 +1,31 @@
+// Place all the styles related to the UserSessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.signin-page{	
+	.input-form{
+		margin-top: 80px;
+	}
+	.submit-control-box{
+		input{
+			float: right;
+		}
+    .c_btn {
+      background: transparent url('buttons.png') 0 -80px no-repeat; background-color: transparent !important;
+      border-radius: 0 !important; font-size: 0 !important; text-indent: -999px;
+      width: 75px !important; height: 75px !important;
+      padding: 0 !important; margin: 5px 0 0 0 !important; overflow: hidden;
+      &:hover {background-position: -80px -80px;}
+    }
+	}
+	.login-page-title{
+		width: 700px;
+		height: 66px;
+		background: url("stripe.png") repeat scroll -6px -384px transparent;
+		margin-top: 50px;
+		margin-bottom: 40px;
+	}
+  
+  label.checkbox {
+    display: inline-block;
+  }
+}

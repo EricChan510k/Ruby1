@@ -1,0 +1,32 @@
+Hi, #{@payment.user.fullname}!
+\
+Thank you for submitting to the 2013 Interior Design Best of Year Awards.
+\
+\
+Your Submissions:
+- @payment.order.submissions.each do |o|
+	= '-' * 60
+	\
+	Name: #{o.title}
+	Type: #{o.submission_type.capitalize}
+	Categories:
+	- o.categories.each do |c|
+		= "\ \ \- #{c.name}"
+	\
+= '-' * 60
+\
+\
+Order #:#{@payment.order.id}
+- if @payment.price_discount.to_i > 0
+	Subtotal: #{Money.new(@payment.price_subtotal || 0).format rescue '$0.00'}
+	Discount: -#{Money.new(@payment.price_discount || 0).format rescue '$0.00'}
+Total Price: #{Money.new(@payment.price_total || 0).format rescue '$0.00'}
+\
+\
+If you have any questions, please contact us.
+\
+\
+Best,
+\
+Interior Design Magazine
+http://www.interiordesign.net

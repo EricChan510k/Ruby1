@@ -1,0 +1,50 @@
+.container.home-page
+	.row.first-row
+		#slider
+			#layerslider-container
+				#layerslider{:style => "width: 900px; height: 525px; margin: 0 auto;"}
+					.ls-layer{:style => "slidedirection: right; slidedelay: 4000; durationin: 1500; durationout: 1500; easingin: easeInOutQuint; easingout: easeInOutQuint; delayin: 0; delayout: 0;"}
+						= image_tag 'slide_images/home_slide1.png', :alt => '', :class => 'ls-bg'
+					.ls-layer{:style => "slidedirection: right; slidedelay: 4000; durationin: 1500; durationout: 1500; easingin: easeInOutQuint; easingout: easeInOutQuint; delayin: 0; delayout: 0;"}
+						[IMG HERE 2]
+
+	.row.home-content.rel
+		.share_area
+			.tell_friends
+			.social-container
+				%a.social-icon{:href=>"http://twitter.com/share?text=.@Interior_Design's%20%23boy2013%20awards%20now%20open%20for%20product%20&%20project%20submissions!%20Deadline:%20September%205.%20http://bit.ly/boy2013", :target => "_blank"}
+					.twitter
+				%a.social-icon{:href=>"http://www.facebook.com/sharer.php?u=http://bit.ly/boy2013&t=Interior Design 2013 Best of Year Awards", :target => "_blank"}
+					.facebook
+				%a.social-icon{:href=>"http://www.linkedin.com/shareArticle?mini=true&url=http://bit.ly/boy2013&title=Interior Design 2013 Best of Year Awards&summary=Interior%20Design%20magazine's%20Best%20of%20Year%20Awards%20now%20open%20for%20product%20%26%20project%20submissions!%20Deadline:%20September%205.%20Submit%20now%20at:%20http://bit.ly/boy2013&source=InteriorDesign", :onclick => "NewWindow(this.href,'template_window','550','400','yes','center');return false;", :target => "_blank"}
+					.linkdin
+
+		%p
+			SUBMIT:
+			%span Product & Project Submission Deadline:
+			%strong Friday, September 6, 2013, 11:59pm EST
+		%p
+			VOTE: 
+			%span Product Voting: 
+			%strong September 16-27, 2013
+		%p
+			JOIN: 
+			%span Awards Ceremony: 
+			%strong Thursday, December 5, 2013
+
+:javascript
+	$(document).ready(function(){
+		$('#layerslider').layerSlider({
+			skinsPath : 'assets/skins/',
+			hoverPrevNext : false,
+			skin : 'borderlesslight',
+			cbInit				: function(element){jQuery('.c-api').append(jQuery('<span>function cbInit() called</span><br>'));},
+			cbStart				: function(data){jQuery('.c-api').append( jQuery('<span>function cbStart() called</span><br>'));},
+			cbStop				: function(data){jQuery('.c-api').append( jQuery('<span>function cbStop() called</span><br>'));},
+			cbPause				: function(data){jQuery('.c-api').append( jQuery('<span>function cbPause() called (pauseOnHover)</span><br>'));},
+			cbAnimStart			: function(data){jQuery('.c-api').append( jQuery('<span>function cbAnimStart() called, current layer is: '+data.curLayerIndex+', next layer is: '+data.nextLayerIndex+'</span><br>'));},
+			cbAnimStop			: function(data){jQuery('.c-api').append( jQuery('<span>function cbAnimStop() called</span><br>'));},
+			cbPrev				: function(data){jQuery('.c-api').append( jQuery('<span>function cbPrev() called</span><br>'));},
+			cbNext				: function(data){jQuery('.c-api').append( jQuery('<span>function cbNext() called</span><br>'));}
+		});
+	});					

@@ -1,0 +1,55 @@
+- @current_section = :submission
+
+.row.confirm-submission-info-page
+	.container
+		.span9.content
+			.row.first-row
+				- if @submission.submission_type == 'product'
+					.submission-product-page-title
+				- else
+					.submission-project-page-title
+			.row.second-row
+				%p Please confirm your entry information is accurate before submitting:
+
+				- if @submission.submission_type == 'product'
+					.row.submission-box
+						%h3= @submission.title
+						.span4
+							%h4 Manufacturer Information:
+							%p= @submission.product_spec.manufacture_name
+							%p= @submission.product_spec.manufacture_addr
+							%p #{@submission.product_spec.manufacture_city}, #{@submission.product_spec.manufacture_state} #{@submission.product_spec.manufacture_zip}
+							%h4 Manufacturer Contact:
+							%p= @submission.product_spec.contact.fullname
+							%p= @submission.product_spec.contact.title_position
+							%p= @submission.product_spec.contact.email
+							%p= @submission.product_spec.contact.phone
+						.span5
+							%h4 Product Information:
+							%p= @submission.product_spec.name
+							%p= @submission.product_spec.introduction_date
+							.product-description= simple_format @submission.product_spec.description
+				- elsif @submission.submission_type == 'project'
+					.row.submission-box
+						%h3= @submission.title
+						.span4
+							%h4 Firm Information:
+							%p= @submission.project_spec.firm_name
+							%p= @submission.project_spec.firm_address
+							%p #{@submission.project_spec.firm_city}, #{@submission.project_spec.firm_state} #{@submission.project_spec.firm_zip}
+							%h4 Firm Contact:
+							%p= @submission.project_spec.contact.fullname
+							%p= @submission.project_spec.contact.title_position
+							%p= @submission.project_spec.contact.email
+							%p= @submission.project_spec.contact.phone
+						.span5
+							%h4 Project Information:
+							%p= @submission.project_spec.name
+							%p= @submission.project_spec.completion_date
+							.product-description= simple_format @submission.project_spec.description
+				- else
+					%p Oh no, there was an unfortuate error.
+
+			.row.last-row{:style=>"margin-bottom: 30px;margin-right: 50px;margin-top: 10px;text-align: right;"}
+				= link_to "Go Back", previous_wizard_path, :class=>"c_btn yc_btn btn_go_back"
+				= link_to "Submit and Pay", payment_process_path, :class=>"c_btn yc_btn btn_submit_pay", :style => 'padding-top: 22px; height: 53px;'

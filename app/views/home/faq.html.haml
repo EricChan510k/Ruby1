@@ -1,0 +1,124 @@
+- @current_section = :faq
+
+.container.faq-page
+	.row.first-row
+		%a{:href=>"#", :style=>""} 
+			.faq-title
+	.row.second-row
+		%ul.menulist
+			%li
+				= link_to 'PRODUCT DESIGN', '#product_design'
+			%li
+				= link_to 'PROJECT DESIGN', '#project_design'
+			%li
+				= link_to 'CONTACT US', '#contact_us'
+	.row.third-row
+		%h5#product_design PRODUCT DESIGN
+		%ul.menulist
+			%li
+				= link_to 'RULES & ELIGIBILITY', '#rule_eligibility'
+			%li
+				= link_to 'KEY DATES', '#key_dates'
+			%li
+				= link_to 'PRODUCT CATEGORIES', '#product_categories'
+			%li.last
+				= link_to 'REQUIREMENTS', '#pd_requirements'
+	.row.fourth-row
+		%p#rule_eligibility.sub-title RULES & ELIGIBILITY
+		%ul.bullet
+			%li Work must have been completed between September 2012 and August 2013.
+			%li Due to the comprehensive nature of this competition, we will accept work that has been published previously and/or was part of another competition.
+			%li There is no limit to the number of products that may be entered to the competition.
+			%li Please note: submissions may be reassigned to a different product category at the editors' discretion.
+			%li Fees: $300 per entry/category for the first 4 entries. All additional entries are discounted at $250 per entry/category. (Each category is considered an entry —e.g. one project entered into two categories is $300 x 2 = $600.) You must submit all entries at the same time for the discount to apply.
+			%li Best of Year: Product Design winners will be chosen by Editor in Chief Cindy Allen and a jury of design leaders and featured in the December issue of Interior Design.
+			%li Finalists will be posted on this site in November.
+			%li Winners will be announced live December 5, 2013, during a ceremony and celebration in New York City.
+
+
+		%p#key_dates.sub-title KEY DATES
+		%p
+			%strong September 6:
+			Deadline for product submissions at 11:59PM EST
+		%p
+			%strong September 16-27:
+			Designers will be invited to 
+			%a{:href => home_vote_path}vote on their favorites
+			during a two-week voting period
+		%p
+			%strong November:
+			Finalists will be posted
+		%p 
+			%strong December 5:
+			%a{:href => home_event_path} Live Best of Year Awards event
+
+		%p#product_categories.sub-title PRODUCT CATEGORIES
+		.row
+			- ct = Category::product_categories.count
+			- Category::product_categories.in_groups_of((ct/2).ceil, nil).each do |g|
+				.span4
+					%ul.catlist
+						- g.each do |l|
+							- next if l.blank?
+							%li= l.name
+
+
+		%p Reminder: after you submit a product, the product categories may be renamed, consolidated, or eliminated and products may be reassigned at the editors' discretion. You will be notified directly if this pertains to one of your entries.
+		%p#pd_requirements.sub-title REQUIREMENTS	
+		%p Product entries must include a completed submission form, including a digital product image, submitted no later than 11:59PM EST on Friday, September 6, 2013. Digital product image must be 350dpi high resolution, .jpg or .tif file, for reproduction at 5" x 7" minimum, and smaller than 5MB.
+		%br/
+		%br/
+		%h5#project_design PROJECT DESIGN
+		.row
+			%ul.menulist
+				%li
+					= link_to 'RULES & ELIGIBILITY', '#pj_rule_eligibility'
+				%li
+					= link_to 'KEY DATES', '#pj_key_dates'
+				%li
+					= link_to 'PRODUCT CATEGORIES', '#pj_categories'
+				%li.last
+					= link_to 'REQUIREMENTS', '#pj_requirements'
+		
+		%p#pj_rule_eligibility.sub-title RULES & ELIGIBILITY
+		%ul.bullet
+			%li Work must have been completed between September 2012 and August 2013.
+			%li Due to the comprehensive nature of this competition, we will accept work that has been published previously and/or was part of another competition.
+			%li There is no limit to the number of projects that may be entered to the competition.
+			%li Please note: submissions may be reassigned to a different project category at the editors' discretion.
+			%li Fees: $300 per entry/category for the first 4 entries. All additional entries are discounted at $250 per entry/category. (Each category is considered an entry —e.g. one project entered into two categories is $300 x 2 = $600.) You must submit all entries at the same time for the discount to apply.
+			%li Best of Year: Project Design winners will be chosen by Editor in Chief Cindy Allen and a jury of design leaders and featured in the December issue of Interior Design.
+			%li Finalists will be posted on this site in November.
+			%li Winners will be announced live December 5, 2013, during a ceremony and celebration in New York City.
+
+		%p#pj_key_dates.sub-title KEY DATES
+		%p
+			%strong September 6:
+			Deadline for product submissions at 11:59PM EST
+		%p
+			%strong November:
+			Finalists will be posted
+		%p
+			%strong December 5:
+			%a{:href => home_event_path} Live Best of Year Awards event
+
+		%p#pj_categories.sub-title PROJECT CATEGORIES
+		.row
+			- ct = Category::project_categories.count
+			- Category::project_categories.in_groups_of((ct/2).ceil, nil).each do |g|
+				.span4
+					%ul.catlist
+						- g.each do |l|
+							- next if l.blank?
+							%li= l.name
+
+		%p Reminder: after you submit a project, the project categories may be renamed, consolidated, or eliminated and projects may be reassigned at the editors' discretion. You will be notified directly if this pertains to one of your entries.
+
+		
+		%p#pj_requirements.sub-title REQUIREMENTS
+		%p Project entries must include a completed submission form, including digital images, press release or other accompanying documentation, list of project team members, and list of primary sources, submitted no later than 11:59pm EST on Friday, September 6, 2013. Each image should be minimum of 350dpi high resolution, .jpg or .tif file size 9" x 11".
+
+		%br/
+		%br/
+		%h5#contact_us CONTACT US
+		%p If you have any questions about your submissions, please review our FAQs, contact us at <a href="mailto:boyawards@interiordesign.net">boyawards@interiordesign.net</a>.

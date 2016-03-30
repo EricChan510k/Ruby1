@@ -1,0 +1,429 @@
+- @current_section = :submission
+
+.container.input-submission-info-page
+	.c
+		.content
+			= render layout: 'form' do |f|
+				.row.first-row.project-spec-input-box
+					- if session[:submission_type] == Submission::TYPE[1]					
+						.row.product-input-box
+							%h4 Manufacturer Information:
+							.control-group
+								= f.label :manufacture_name, "Manufacturer Name*	",:class => 'control-label'
+								.controls
+									= f.text_field :manufacture_name, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :manufacturer_name)
+							.control-group
+								= f.label :manufacture_addr, "Address*	",:class => 'control-label'
+								.controls
+									= f.text_field :manufacture_addr, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :manufacturer_addr)
+							.control-group
+								= f.label :manufacture_city, "City*	",:class => 'control-label'
+								.controls
+									= f.text_field :manufacture_city, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :manufacturer_city)
+							.control-group
+								= f.label :manufacture_state, "State*	",:class => 'control-label'
+								.controls
+									= f.text_field :manufacture_state, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :manufacturer_state)
+							.control-group
+								= f.label :manufacture_zip, "Zip Code*	",:class => 'control-label'
+								.controls
+									= f.text_field :manufacture_zip, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :manufacturer_zip)
+						.row
+							= f.fields_for :contact do |contact|
+								%h4 
+									Manufacturer Contact:
+								%p
+									%span.note (for Interior Design use)
+								.row
+									.control-group
+										= contact.label :first_name, "Contact Name*", :class => 'control-label'
+										.controls
+											= contact.text_field :first_name, :class => 'text_field', :"data-required"=>"true"
+											= contact.text_field :last_name, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :name)
+									.control-group
+										= contact.label :title_position, "Title/Position*",:class => 'control-label'
+										.controls
+											= contact.text_field :title_position, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :title_position)
+									.control-group
+										= contact.label :email, "Email*",:class => 'control-label'
+										.controls
+											= contact.email_field :email, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :email)
+									.control-group
+										= contact.label :phone, "Phone Number*",:class => 'control-label'
+										.controls
+											= contact.text_field :phone, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :phone)
+						.row
+							%h4 Product Information:
+							.control-group
+								= f.label :name, "Formal Product Name*",:class => 'control-label'
+								.controls
+									= f.text_field :name, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :name)
+							.control-group
+								= f.label :introduction_date, "Introduction Date*",:class => 'control-label'
+								.controls
+									= f.text_field :introduction_date, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :introduction_date)
+								%br
+								%span.note (REMINDER: Product must have been introduced between September 2012 and August 2013)
+							.control-group.textarea
+								%label.control-label Product Description*
+								=f.text_area :description, :"data-required"=>"true"
+						.row#upload_box
+							.control-group
+								%label.control-label{:style=>"width: 180px;"} Product image*								
+								.controls.file-upload-box
+									- index = 0
+									=f.fields_for :pictures do |picture|
+										- if picture.object.image.present?
+											.row.file-tags{:style=>"height: 90px;"}
+												.span3{:style=>"width: 280px;"}
+													.span1{:style=>"width:85px;"}
+														= image_tag picture.object.image.url(:thumb)
+												- if false
+													.span2{:style=>"width: 170px;"}
+														%input.temp_path{:id=>"path#{index}", :type=>"text", :style=>"width: 160px;", :readonly => true}
+														- index=index+1
+													.span2
+														%label.upload-btn 
+															select file
+															%span
+																= picture.file_field :image, :class=>"text_field file-upload-filed", :style=>"height: 30px;"
+															
+										- else
+											.row.file-tags
+												.span3{:style=>"width: 220px;"}
+													%input.temp_path{:id=>"path#{@submission.pictures.count}", :type=>"text", :readonly => true}
+												.span2
+													%label.upload-btn 
+														select file
+														%span
+															%input.text_field.parsley-validated.file-upload-filed{:id=>"product_spec_pictures_attributes_#{@submission.pictures.count}_image",:type=>"file", :name=>"product_spec[pictures_attributes][#{@submission.pictures.count}][image]"}
+									
+								%p Provide up to 2 images. Please provide high-resolution images (350dpi, 6"x7", 5MB maximum).
+							
+					- elsif session[:submission_type] == Submission::TYPE[0]
+						.row.project-input-box
+							%h4 Firm Information:
+							.control-group
+								= f.label :firm_name, "Firm Name*",:class => 'control-label'
+								.controls
+									= f.text_field :firm_name, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :firm_name)
+							.control-group
+								= f.label :firm_address, "Address*",:class => 'control-label'
+								.controls
+									= f.text_field :firm_address, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :firm_address)
+							.control-group
+								= f.label :firm_city, "City*",:class => 'control-label'
+								.controls
+									= f.text_field :firm_city, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :firm_city)
+							.control-group
+								= f.label :firm_state, "State*",:class => 'control-label'
+								.controls
+									= f.text_field :firm_state, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :firm_state)
+							.control-group
+								= f.label :firm_zip, "Zip*",:class => 'control-label'
+								.controls
+									= f.text_field :firm_zip, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :firm_zip)
+						.row
+							= f.fields_for :contact do |contact|
+								%h4 
+									Firm Contact 
+								%p
+									%span.note (for Interior Design use)
+								.row
+									.control-group
+										= contact.label :first_name, "Contact Name*", :class => 'control-label'
+										.controls
+											= contact.text_field :first_name, :class => 'text_field', :"data-required"=>"true"
+											= contact.text_field :last_name, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :name)
+									.control-group
+										= contact.label :title_position, "Title/Position*",:class => 'control-label'
+										.controls
+											= contact.text_field :title_position, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :title_position)
+									.control-group
+										= contact.label :email, "Email*",:class => 'control-label'
+										.controls
+											= contact.email_field :email, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :email)
+									.control-group
+										= contact.label :phone, "Phone Number*",:class => 'control-label'
+										.controls
+											= contact.text_field :phone, :class => 'text_field', :"data-required"=>"true"
+											= display_form_error(contact.object, :phone)
+
+						.row
+							%h4 Project Information:
+							.control-group
+								= f.label :name, "Formal Project Name*",:class => 'control-label'
+								.controls
+									= f.text_field :name, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :name)
+							.control-group
+								= f.label :lead_designer, "Lead Designer*",:class => 'control-label'
+								.controls
+									= f.text_field :lead_designer, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :lead_designer)
+							.control-group
+								= f.label :architect, "Architect",:class => 'control-label'
+								.controls
+									= f.text_field :architect, :class => 'text_field'
+									= display_form_error(f.object, :architect)
+							.control-group
+								%label.control-label.full List of complete project team members, including titles
+								=f.text_area :team_members
+								= display_form_error(f.object, :team_members)
+							%br/
+							.control-group
+								%label.control-label.full Project Description*	
+								=f.text_area :description, :"data-required"=>"true"
+								= display_form_error(f.object, :description)
+							%br/
+							.control-group
+								= f.label :completion_date, "Completion Date", :class => 'control-label', :style=>"height: 16px;"
+								.controls
+									= f.text_field :completion_date, :class => 'text_field'
+									= display_form_error(f.object, :completion_date)
+								%span.note (REMINDER: Project must have been completed between September 2012 and August 2013)
+							.control-group
+								= f.label :square_footage, "Square footage of project*",:class => 'control-label'
+								.controls
+									= f.text_field :square_footage, :class => 'text_field', :"data-required"=>"true"
+									= display_form_error(f.object, :square_footage)
+							.control-group
+								%label.control-label.full List of primary sources (manufacturer names for each product category)
+								=f.text_area :primary_sources
+								= display_form_error(f.object, :primary_sources)
+
+						.row
+							%h4 Project Documentation:
+							%p Upload a press release or other accompanying documentation about the project [space here]; up to three documents (optional):
+							-@submission.resources.each do |resource|
+								- if resource.document_file_name.present?
+									%p{:style=>"background-color: white;border-top-width: 1px;padding: 10px;width: 60%;"}
+										Uploaded document name:
+										%strong
+											%a{:href =>resource.document.url }= resource.document_file_name
+							.control-group.document_file_tag
+								.controls.file-upload-box{:style=>"margin-left: 0;"}
+									.row
+										.span3{:style=>"width: 320px;"}
+											%input.temp_path#path0{:style=>"width: 310px;", :readonly => true}
+										.span2
+											%label.upload-btn 
+												select file
+												%span
+													%input#project_spec_resources_attributes_0_document.text_field.parsley-validated.file-upload-filed{:type=>"file", :name=>"project_spec[resources_attributes][0][document]"}
+							
+						.row
+							%h4 Project Images
+							- index = 0
+							=f.fields_for :pictures do |picture|
+								- if picture.object.image.present?
+									.control-group.project_image_file_tag
+										.controls.file-upload-box{:style=>"margin-left: 0;"}
+											.span5
+												.span1.thumb{:style=>"width: 80px;"}
+													= image_tag picture.object.image.url(:thumb)
+								-else
+									.control-group
+										= picture.label :user_file_url, "Link to hosted file of images:",:class => 'control-label', :style=>"width: 230px;"
+										.controls
+											= picture.text_field :user_file_url, :class => 'text_field'
+											= display_form_error(picture.object, :user_file_url)
+									%label AND/OR
+									.control-group.project_image_file_tag
+										%label.control-label{:style=>"width: 230px;"} Link Upload images here:
+										.controls.file-upload-box{:style=>"margin-left: 0;"}
+											.span5
+												%input.temp_path{:id=>"path_#{@submission.pictures.count}",:style=>"width: 226px;", :readonly => true}
+												%label.upload-btn 
+													select file
+													%span
+														%input.text_field.parsley-validated.file-upload-filed{:id=>"project_spec_pictures_attributes_#{@submission.pictures.count}_image",:type=>"file", :name=>"project_spec[pictures_attributes][#{@submission.pictures.count}][image]"}
+
+							%span There is a no minimum or maximum number of images. Please provide high-resolution images (350dpi, 9"x11") in JPEG, PNG, GIF, or TIFF format (20MB maximum).
+
+						.row
+							= f.fields_for :company do |company|
+								%h5{:style=>"font-size: 16px;"}
+									As part of your Best of Year submission, you receive one complimentary year of Interior Design. Please provide the recipient’s name & address of below (optional):
+								.row
+									.control-group
+										= company.label :name, "Name", :class => 'control-label'
+										.controls
+											= company.text_field :name, :class => 'text_field'
+											= display_form_error(company.object, :name)
+									.control-group
+										= company.label :title_position, "Title/Position",:class => 'control-label'
+										.controls
+											= company.text_field :title_position, :class => 'text_field'
+											= display_form_error(company.object, :title_position)
+									.control-group
+										= company.label :address, "Address",:class => 'control-label'
+										.controls
+											= company.text_field :address, :class => 'text_field'
+											= display_form_error(company.object, :address)
+									.control-group
+										= company.label :city, "City, State, Zip",:class => 'control-label'
+										.controls
+											= company.text_field :city, :class => 'text_field', :style=>"width: 150px;"
+											= company.text_field :state, :class => 'text_field', :style=>"width: 100px;"
+											= company.text_field :zip, :class => 'text_field', :style=>"width: 100px;"
+											= display_form_error(company.object, :city)
+											= display_form_error(company.object, :state)
+											= display_form_error(company.object, :zip)
+									.control-group
+										= company.label :email, "Email",:class => 'control-label'
+										.controls
+											= company.email_field :email, :class => 'text_field'
+											= display_form_error(company.object, :email)
+									.control-group
+										= company.label :phone, "Phone Number",:class => 'control-label'
+										.controls
+											= company.text_field :phone, :class => 'text_field'
+											= display_form_error(company.object, :phone)
+
+
+:javascript
+	$("#product_spec_introduction_date, #project_spec_completion_date").glDatePicker({
+		leftMargin: 15,
+		topMargin: -10,
+		selectedDate : null,
+		onChange: function(target, newDate) {
+			target.val((newDate.getMonth() + 1) + "/" + newDate.getDate() + "/" + newDate.getFullYear());
+		}
+	});
+
+	$("#project_spec_completion_date").val("");
+	$("#product_spec_introduction_date").val("");
+
+	$('.jqBigform').jqTransform(); 
+
+	var file_tag_count = $("div.file-tags input[type='file']").length;
+
+	$("div.file-tags").each(function(i){
+		$("input[type='file']", $(this)).change(function(){
+			var file_tag_id = "product_spec_pictures_attributes_"+i+"_image";
+			var text_tag_id = "path"+i		
+			var file = document.getElementById(file_tag_id);
+			$("#"+text_tag_id).val(file.files[0].name);
+			if(i== file_tag_count-1){
+				add_new_file_tag(file_tag_count);
+			}
+			file_tag_count ++;
+		});
+	});
+	 
+	function add_new_file_tag(i){		
+		var new_file_tag_id = "product_spec_pictures_attributes_"+i+"_image";
+		var new_file_tag_name = "product_spec[pictures_attributes]["+i+"][image]";
+		var new_text_tag_id = "path"+i;
+		var new_file_tag = '<div class="row file-tags"><div style="width: 220px;" class="span3"><input type="text" id="'+new_text_tag_id+'" class="temp_path" disabled="disabled"></div><div class="span2"><label class="upload-btn">select file<span><input type="file" name="'+new_file_tag_name+'" id="'+new_file_tag_id+'" class="text_field parsley-validated file-upload-filed"></span></label></div></div>'
+		$(new_file_tag).insertAfter($('div.file-tags').last());
+		$(document).on("change","#"+"product_spec_pictures_attributes_"+i+"_image", function(event){
+			var file = document.getElementById(new_file_tag_id);
+			$("#"+new_text_tag_id).val(file.files[0].name);
+			if(i== file_tag_count-1 && file_tag_count < 2){
+				add_new_file_tag(i+1);
+				file_tag_count++;
+			}			
+		});
+	}
+
+
+	
+
+	var doc_file_tag_count = $("div.document_file_tag input[type='file']").length;
+
+	$("div.document_file_tag").each(function(i){
+		$("input[type='file']", $(this)).change(function(){
+			var file_tag_id = "project_spec_resources_attributes_"+i+"_document";
+			var text_tag_id = "path"+i
+			var file = document.getElementById(file_tag_id);
+			$("#"+text_tag_id).val(file.files[0].name);
+			if(i == doc_file_tag_count-1){
+				add_new_document_file_tag(doc_file_tag_count);
+				doc_file_tag_count++;
+			}			
+		});
+	});
+	
+	function add_new_document_file_tag(i){		
+		var count = parseInt(i)+1
+		var new_doc_name = "File "+ count;
+		var new_doc_tag_id = "project_spec_resources_attributes_"+i+"_document";
+		var new_doc_tag_name = "project_spec[resources_attributes]["+i+"][document]";
+		var new_text_tag_id = "path"+i;
+		var new_doc_tag = '<div class="control-group document_file_tag"><div style="margin-left: 0;" class="controls file-upload-box"><div class="row"><div style="width: 320px;" class="span3"><input style="width: 310px;" id='+new_text_tag_id+' class="temp_path" disabled="disabled"></div><div class="span2"><label class="upload-btn">select file<span><input type="file" name='+new_doc_tag_name+' id='+new_doc_tag_id+' class="text_field parsley-validated file-upload-filed"></span></label></div></div></div></div>'
+
+		$(new_doc_tag).insertAfter($("div.document_file_tag").last());
+		
+		$(document).on("change","#"+new_doc_tag_id, function(event){
+			var file = document.getElementById(new_doc_tag_id);
+			$("#"+new_text_tag_id).val(file.files[0].name);
+			if(i== doc_file_tag_count-1 && doc_file_tag_count < 3 ){
+				add_new_document_file_tag(i+1);
+				doc_file_tag_count++;
+			}			
+		});	
+	}
+
+	
+	var project_image_file_tag_count = $("div.project_image_file_tag input[type='file']").length;
+
+	$("div.project_image_file_tag").each(function(i){
+		$("input[type='file']", $(this)).change(function(){
+			var file_tag_id = "project_spec_pictures_attributes_"+i+"_image";
+			var text_tag_id = "path_"+i
+			var file = document.getElementById(file_tag_id);
+			$("#"+text_tag_id).val(file.files[0].name);
+			if(i == project_image_file_tag_count-1){
+				add_new_project_image_file_tag(project_image_file_tag_count);
+				project_image_file_tag_count++;
+			}			
+		});
+	});
+	
+	function add_new_project_image_file_tag(i){		
+		var count = parseInt(i)+1
+		var new_project_img_tag_id = "project_spec_pictures_attributes_"+i+"_image";
+		var new_project_img_tag_name = "project_spec[pictures_attributes]["+i+"][image]";
+		var new_text_tag_id = "path_"+i;
+		var new_project_img_tag = '<div class="control-group project_image_file_tag"><label class="control-label" style="width:230px;"></label><div style="margin-left: 0;" class="controls file-upload-box"><div class="span5"><input style="width: 226px;" id="'+new_text_tag_id+'" class="temp_path" disabled="disabled"> <label class="upload-btn">select file<span><input type="file" name="'+new_project_img_tag_name+'" id="'+new_project_img_tag_id+'" class="text_field parsley-validated file-upload-filed"></span></label></div></div></div>'
+
+		$(new_project_img_tag).insertAfter($("div.project_image_file_tag").last());
+		
+		$(document).on("change","#"+new_project_img_tag_id, function(event){
+			var file = document.getElementById(new_project_img_tag_id);
+			$("#"+new_text_tag_id).val(file.files[0].name);
+			if(i== project_image_file_tag_count-1){
+				add_new_project_image_file_tag(i+1);
+				project_image_file_tag_count++;
+			}			
+		});	
+	}
+
+
+	
+
+
+	$("input.product_file_field").change(function(){
+	});
+	
